@@ -3,7 +3,6 @@ package med.voll.api.controller;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import med.voll.api.endereco.Endereco;
-import med.voll.api.medico.DadosListagemMedico;
 import med.voll.api.medico.Medico;
 import med.voll.api.medico.MedicoRepository;
 import med.voll.api.medico.dadosCadastroMedicos;
@@ -25,9 +24,8 @@ public class MedicoController {
     public void cadastrar(@RequestBody @Valid dadosCadastroMedicos dados){
         repository.save(new Medico(dados));
     }
-@GetMapping
-    public Page<DadosListagemMedico> listarMedico(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao){
+    @GetMapping
+    public Page<DadosListagemMedico> listar(Pageable paginacao) {
         return repository.findAll(paginacao).map(DadosListagemMedico::new);
-
     }
 }
