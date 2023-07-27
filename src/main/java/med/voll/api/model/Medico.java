@@ -1,16 +1,14 @@
-package med.voll.api.medico;
+package med.voll.api.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import med.voll.api.endereco.DadosEndereco;
-import med.voll.api.endereco.Endereco;
+import lombok.*;
+import med.voll.api.dto.DadosAtualizacaoMedicos;
+import med.voll.api.dto.dadosCadastroMedicos;
 
 @Table(name = "medicos")
 @Entity(name = "medico")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -40,20 +38,6 @@ public class Medico {
         this.crm = dados.crm();
         this.especialidade = dados.especialidade();
         this.endereco = new Endereco(dados.endereco());
-    }
-
-
-    public void atualizarInformacoes(DadosAtualizacaoMedicos dadosAtualizadosMedicos) {
-        if(dadosAtualizadosMedicos.nome() != null){
-
-            this.nome = dadosAtualizadosMedicos.nome();
-        };
-        if(dadosAtualizadosMedicos.telefone() != null) {
-            this.telefone = dadosAtualizadosMedicos.telefone();
-        }
-        if (dadosAtualizadosMedicos.endereco() != null){
-            this.endereco.atualizarInformacoes(dadosAtualizadosMedicos.endereco());
-        }
     }
 
     public void excluir() {

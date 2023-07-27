@@ -1,12 +1,13 @@
-package med.voll.api.paciente;
+package med.voll.api.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
-import med.voll.api.endereco.Endereco;
-import med.voll.api.medico.DadosAtualizacaoMedicos;
+import med.voll.api.dto.dadosAtualizacaoPacientes;
+import med.voll.api.dto.dadosCadastrosPacientes;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -31,19 +32,19 @@ public class Paciente {
         this.endereco = new Endereco(dados.endereco());
     }
 
-    public void atualizarInformacoesPaciente(dadosAtualizacaoPacientes dadosAtualizadosPacientes) {
-        if(dadosAtualizadosPacientes.nome() != null){
-            this.nome = dadosAtualizadosPacientes.nome();
-        };
-        if(dadosAtualizadosPacientes.telefone() != null) {
-            this.telefone = dadosAtualizadosPacientes.telefone();
-        }
-        if (dadosAtualizadosPacientes.endereco() != null){
-            this.endereco.atualizarInformacoes(dadosAtualizadosPacientes.endereco());
-        }
-
-
-    }
+//    public void atualizarInformacoesPaciente(dadosAtualizacaoPacientes dadosAtualizadosPacientes) {
+//        if(dadosAtualizadosPacientes.nome() != null){
+//            this.nome = dadosAtualizadosPacientes.nome();
+//        };
+//        if(dadosAtualizadosPacientes.telefone() != null) {
+//            this.telefone = dadosAtualizadosPacientes.telefone();
+//        }
+//        if (dadosAtualizadosPacientes.endereco() != null){
+//            this.endereco.atualizarInformacoes(dadosAtualizadosPacientes.endereco());
+//        }
+//
+//
+//    }
     public void inativar() {
         this.ativo = false;
     }

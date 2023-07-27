@@ -1,9 +1,6 @@
-package med.voll.api.paciente;
+package med.voll.api.dto;
 
-import med.voll.api.medico.Especialidade;
-import med.voll.api.medico.Medico;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import med.voll.api.model.Paciente;
 
 
 public record DadosListagemPaciente(

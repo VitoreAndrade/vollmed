@@ -1,9 +1,12 @@
-package med.voll.api.endereco;
+package med.voll.api.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 public record DadosEndereco(
+        @Autowired
         @NotBlank
         String logradouro,
         @NotBlank
