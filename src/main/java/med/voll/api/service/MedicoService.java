@@ -48,6 +48,7 @@ public class MedicoService {
 
     public void excluir (Long id){
         var medico = repository.getReferenceById(id);
+
         medico.excluir();
 
     }
