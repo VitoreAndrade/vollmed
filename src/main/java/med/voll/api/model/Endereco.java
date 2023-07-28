@@ -11,6 +11,7 @@ import med.voll.api.dto.DadosEndereco;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Endereco {
+    private int id;
     private String logradouro;
     private String bairro;
     private String cep;
