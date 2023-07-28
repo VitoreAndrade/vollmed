@@ -2,8 +2,7 @@ package med.voll.api.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import med.voll.api.dto.DadosAtualizacaoMedicos;
-import med.voll.api.dto.dadosCadastroMedicos;
+import med.voll.api.dto.dadosCadastroMedicosDto;
 
 @Table(name = "medicos")
 @Entity(name = "medico")
@@ -16,6 +15,7 @@ public class Medico {
 
     @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
     private long id;
+    private int endereco_id;
     private String nome;
     private String email;
     private String telefone;
@@ -30,7 +30,7 @@ public class Medico {
 
     private boolean ativo;
 
-    public Medico(dadosCadastroMedicos dados) {
+    public Medico(dadosCadastroMedicosDto dados) {
         this.ativo = true;
         this.nome = dados.nome();
         this.email = dados.email();
