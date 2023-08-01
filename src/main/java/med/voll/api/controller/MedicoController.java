@@ -2,6 +2,7 @@ package med.voll.api.controller;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import med.voll.api.dto.DadosEndereco;
 import med.voll.api.dto.dadosCadastroMedicosDto;
 import med.voll.api.service.MedicoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class MedicoController {
     public void cadastrar(@RequestBody @Valid dadosCadastroMedicosDto dados){
         service.cadastrar(dados);
     }
+
 
     @PutMapping
     @Transactional

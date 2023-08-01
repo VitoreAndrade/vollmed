@@ -8,19 +8,20 @@ import jakarta.validation.constraints.Pattern;
 import med.voll.api.model.Especialidade;
 
 public record dadosCadastroMedicosDto(
+
         @NotBlank
         String nome,
         @NotBlank
-                @Email
+        @Email
         String email,
         @NotBlank
         String telefone,
         @NotBlank
-                @Pattern(regexp = "\\d{4,6}")
+        @Pattern(regexp = "\\d{4,6}")
         String crm,
         @NotNull
         Especialidade especialidade,
         @NotNull
-                @Valid
-        DadosEndereco endereco){
+        @Valid
+        DadosEndereco endereco)        {
 }

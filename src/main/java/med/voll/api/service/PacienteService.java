@@ -30,9 +30,9 @@ public class PacienteService {
         if(dadosAtualizadosPacientes.telefone() != null) {
             paciente.setTelefone(dadosAtualizadosPacientes.telefone());
         }
-        if (dadosAtualizadosPacientes.endereco() != null){
-            paciente.getEndereco().atualizarInformacoes(dadosAtualizadosPacientes.endereco());
-        }
+//        if (dadosAtualizadosPacientes.endereco() != null){
+//            paciente.getEndereco().atualizarInformacoes(dadosAtualizadosPacientes.endereco());
+//        }
     }
 
     public Page<DadosListagemPaciente> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
