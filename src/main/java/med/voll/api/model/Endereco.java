@@ -1,17 +1,23 @@
 package med.voll.api.model;
 
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import med.voll.api.dto.DadosEndereco;
 
-@Embeddable
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity(name = "endereco")
+@Table(name = "endereco")
+
 public class Endereco {
-    private int id;
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String logradouro;
     private String bairro;
     private String cep;

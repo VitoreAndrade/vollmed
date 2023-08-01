@@ -4,6 +4,7 @@ import med.voll.api.dto.DadosAtualizacaoMedicosDto;
 import med.voll.api.dto.DadosListagemMedico;
 import med.voll.api.dto.dadosCadastroMedicosDto;
 import med.voll.api.model.Medico;
+import med.voll.api.repositorio.EnderecoRepository;
 import med.voll.api.repositorio.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,9 +16,12 @@ public class MedicoService {
 
     @Autowired
     private MedicoRepository repository;
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
 
     public void cadastrar( dadosCadastroMedicosDto dados){
+
         repository.save(new Medico(dados));
     }
 

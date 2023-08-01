@@ -5,28 +5,27 @@ import lombok.*;
 import med.voll.api.dto.dadosCadastroMedicosDto;
 
 @Table(name = "medicos")
-@Entity(name = "medico")
+@Entity(name = "Medico")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Medico {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private long id;
-    private int endereco_id;
+    private Long id;
     private String nome;
     private String email;
     private String telefone;
     private String crm;
 
-
-    @Enumerated(EnumType.STRING)
-    private Especialidade especialidade;
-
-    @Embedded
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_endereco")
     private Endereco endereco;
+    @Enumerated(value = EnumType.STRING)
+    private Especialidade especialidade;
 
     private boolean ativo;
 
