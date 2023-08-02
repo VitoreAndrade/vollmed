@@ -11,7 +11,6 @@ import med.voll.api.dto.DadosEndereco;
 @AllArgsConstructor
 @Entity(name = "endereco")
 @Table(name = "endereco")
-
 public class Endereco {
 
     @Id
