@@ -4,13 +4,16 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import med.voll.api.dto.DadosEndereco;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "endereco")
 @Table(name = "endereco")
+
 public class Endereco {
 
     @Id
@@ -34,6 +37,16 @@ public class Endereco {
         this.numero = dados.complemento();
         this.complemento = dados.complemento();
     }
+
+//    public Endereco(Endereco dados) {
+//        this.logradouro = dados.getLogradouro();
+//        this.bairro = dados.getBairro();
+//        this.cep = dados.getCep();
+//        this.uf = dados.getUf();
+//        this.cidade = dados.getCidade();
+//        this.numero = dados.getNumero();
+//        this.complemento = dados.getComplemento();
+//    }
 
     public void atualizarInformacoes(DadosEndereco dados) {
         if(dados.logradouro() != null){
