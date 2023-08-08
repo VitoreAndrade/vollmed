@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import med.voll.api.dto.dadosCadastroMedicosDto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Table(name = "medicos")
 @Entity(name = "Medico")
 @Getter
@@ -27,6 +30,10 @@ public class Medico {
     @Enumerated(value = EnumType.STRING)
     private Especialidade especialidade;
 
+
+    @ManyToMany(mappedBy = "medicos")
+    List<Consultorio> consultorios;
+
     private boolean ativo;
 
     public Medico(dadosCadastroMedicosDto dados) {
@@ -41,5 +48,9 @@ public class Medico {
 
     public void excluir() {
         this.ativo = false;
+    }
+
+    public Medico(Long id) {
+        this.id = id;
     }
 }
