@@ -26,7 +26,9 @@ public class Consultorio {
     @JoinColumn(name = "id_endereco_consultorio")
     private Endereco endereco;
 
-    @Enumerated(value = EnumType.STRING)
+//    @Enumerated(value = EnumType.STRING)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id")
     private Especialidade especialidade;
 
     @ManyToMany(cascade = CascadeType.MERGE)
@@ -44,12 +46,18 @@ public class Consultorio {
 
         this.medicos = new ArrayList<>();
         for (Long i = 0L; i > dados.medicos().size() ; i++) {
-            this.medicos.add(new Medico(i));
+                this.medicos.add(new Medico(i));
         }
 
     }
     public void excluir(){
         this.ativo = false;
     }
-    public Consultorio (Long id)
+    public Consultorio (Long id){
+        this.ativo = false;
+    }
+
+    public void excluirMedico(Long id){
+        medicos.remove(id);
+    }
 }

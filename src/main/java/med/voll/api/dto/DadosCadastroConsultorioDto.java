@@ -10,8 +10,6 @@ import med.voll.api.model.Medico;
 import java.util.List;
 
 public record DadosCadastroConsultorioDto(
-        @NotNull
-        Long id,
         @NotBlank
         String nome_consultorio,
         @NotNull

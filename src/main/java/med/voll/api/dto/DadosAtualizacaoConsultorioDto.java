@@ -7,7 +7,7 @@ import java.util.List;
 
 public record DadosAtualizacaoConsultorioDto(
         @NotNull
-        Long id,
+        Long id_consultorio,
         String nome_consultorio,
         Especialidade especialidade,
         DadosEndereco endereco,

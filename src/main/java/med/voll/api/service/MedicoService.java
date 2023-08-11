@@ -1,8 +1,10 @@
 package med.voll.api.service;
 
+import jakarta.transaction.Transactional;
 import med.voll.api.dto.DadosAtualizacaoMedicosDto;
 import med.voll.api.dto.DadosListagemMedico;
 import med.voll.api.dto.dadosCadastroMedicosDto;
+import med.voll.api.model.Consultorio;
 import med.voll.api.model.Medico;
 import med.voll.api.repositorio.EnderecoRepository;
 import med.voll.api.repositorio.MedicoRepository;
