@@ -24,6 +24,7 @@ public class Medico {
     private String email;
     private String telefone;
     private String crm;
+    private Long id_especialidade;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_endereco")
@@ -48,6 +49,7 @@ public class Medico {
         this.nome = dados.nome();
         this.email = dados.email();
         this.telefone = dados.telefone();
+        this.id_especialidade = dados.id_especialidade();
         this.crm = dados.crm();
         this.endereco = new Endereco(dados.endereco());
     }

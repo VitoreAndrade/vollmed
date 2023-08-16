@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-@Entity
+@Entity(name = "consultorio")
 @Table(name = "consultorio")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -36,6 +36,10 @@ public class Consultorio {
             joinColumns = @JoinColumn(name = "consultorio_id"),
             inverseJoinColumns = @JoinColumn(name = "medico_id"))
     List<Medico> medicos;
+
+
+    @ManyToMany(mappedBy = "consultorios")
+    List<Especialidade>especialidades;
 
     private boolean ativo;
     public Consultorio(DadosCadastroConsultorioDto dados) {

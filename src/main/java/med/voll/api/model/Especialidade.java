@@ -28,8 +28,20 @@ public class Especialidade {
             joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_especialidade"))
     List<Medico> medicos;
+
+
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "consultorio_especialidade", joinColumns = @JoinColumn(name = "id_especialidades"),
+            inverseJoinColumns = @JoinColumn(name = "id_consultorios"))
+    List<Consultorio> consultorios;
     public Especialidade (DadosCadastrosEspecialidadesDto dados){
      this.nomeEspecialidade = dados.nomeEspecialidade();
+     this.consultorios = new ArrayList<>();
+        for (Long i = 0L; i >consultorios.size() ; i++) {
+            this.consultorios.add(new Consultorio(i));
+        }
     }
+
+
 
 }

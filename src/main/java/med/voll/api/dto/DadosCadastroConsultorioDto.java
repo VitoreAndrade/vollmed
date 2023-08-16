@@ -17,6 +17,8 @@ public record DadosCadastroConsultorioDto(
         @NotNull
         @Valid
         DadosEndereco endereco,
-        List<Long> medicos
+        List<Long> medicos,
+
+        List<Long> especialidades
         ) {
 }

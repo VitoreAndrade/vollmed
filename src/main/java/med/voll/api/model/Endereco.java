@@ -38,16 +38,6 @@ public class Endereco {
         this.complemento = dados.complemento();
     }
 
-//    public Endereco(Endereco dados) {
-//        this.logradouro = dados.getLogradouro();
-//        this.bairro = dados.getBairro();
-//        this.cep = dados.getCep();
-//        this.uf = dados.getUf();
-//        this.cidade = dados.getCidade();
-//        this.numero = dados.getNumero();
-//        this.complemento = dados.getComplemento();
-//    }
-
     public void atualizarInformacoes(DadosEndereco dados) {
         if(dados.logradouro() != null){
             this.logradouro = dados.logradouro();
