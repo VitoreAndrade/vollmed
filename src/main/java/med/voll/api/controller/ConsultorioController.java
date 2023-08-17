@@ -27,7 +27,7 @@ public class ConsultorioController {
 
     @PostMapping("/{consultorio}/novoMedico/{id}")
     @Transactional
-    public void adicionarMedico (@RequestBody @Valid @PathVariable ("consultorio") Long consultorio, @PathVariable("id") Medico medico){
+    public void adicionarMedico (@RequestBody @Valid @PathVariable ("consultorio") Long consultorio, @PathVariable("id") Long medico){
         service.addMedico(consultorio, medico);
     }
 

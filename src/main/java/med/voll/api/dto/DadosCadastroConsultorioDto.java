@@ -12,13 +12,12 @@ import java.util.List;
 public record DadosCadastroConsultorioDto(
         @NotBlank
         String nome_consultorio,
-        @NotNull
-        Especialidade especialidade,
+//        @NotNull
+//        Especialidade especialidade,
         @NotNull
         @Valid
         DadosEndereco endereco,
         List<Long> medicos,
-
         List<Long> especialidades
         ) {
 }

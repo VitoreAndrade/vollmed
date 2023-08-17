@@ -7,9 +7,11 @@ import med.voll.api.dto.DadosListagemConsultorio;
 import med.voll.api.dto.DadosListagemMedico;
 import med.voll.api.model.Consultorio;
 import med.voll.api.model.Endereco;
+import med.voll.api.model.Especialidade;
 import med.voll.api.model.Medico;
 import med.voll.api.repositorio.ConsultorioRepository;
 import med.voll.api.repositorio.EnderecoRepository;
+import med.voll.api.repositorio.MedicoRepository;
 import org.apache.catalina.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,6 +25,9 @@ public class ConsultorioService {
     @Autowired
     private ConsultorioRepository repository;
 
+    @Autowired
+    private MedicoRepository medicoRepository;
+
     public void cadastarConsultorio (DadosCadastroConsultorioDto dados){
         repository.save(new Consultorio(dados));
     }
@@ -34,9 +39,9 @@ public class ConsultorioService {
         if(dados.nome_consultorio() != null){
             consultorio.setNome_consultorio(dados.nome_consultorio());
         }
-        if(dados.especialidade() != null){
-            consultorio.setEspecialidade(dados.especialidade());
-        }
+//        if(dados.especialidade() != null){
+//            consultorio.setEspecialidade(dados.especialidade());
+//        }
         if(dados.endereco() != null){
             consultorio.getEndereco().atualizarInformacoes(dados.endereco());
         }
@@ -75,16 +80,26 @@ public class ConsultorioService {
     }
 
 
-public void addMedico(Long consultorios, Medico novoMedico) {
+public void     addMedico(Long consultorios, Long novoMedico) {
     Consultorio consul = repository.findById(consultorios).orElse(null);
 
     if (consul!= null) {
-        consul.getMedicos().add(novoMedico);
+        Medico medico = medicoRepository.findById(novoMedico).get();
+
+        consul.getMedicos().add(medico);
         repository.saveAndFlush(consul);
     }
 
 }
+    public void     addEspecialidade(Long consultorios, Long especialidade) {
+        Consultorio consul = repository.findById(consultorios).orElse(null);
 
+        if (consul!= null) {
+            Especialidade especialidadeNova = EspecialidadeRepository.findById(especialidade).get();
+
+            consul.getMedicos().add(medico);
+            repository.saveAndFlush(consul);
+        }
 }
 
 
