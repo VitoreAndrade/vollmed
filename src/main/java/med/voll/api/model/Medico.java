@@ -42,6 +42,7 @@ public class Medico {
     List<Especialidade> especialidades;
 
 
+
     private boolean ativo;
 
     public Medico(dadosCadastroMedicosDto dados) {

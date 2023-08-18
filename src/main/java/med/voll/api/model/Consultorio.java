@@ -39,9 +39,12 @@ public class Consultorio {
 
 
     @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "consultorio_especialidade", joinColumns = @JoinColumn(name = "id_especialidades"),
-            inverseJoinColumns = @JoinColumn(name = "id_consultorios"))
+    @JoinTable(name = "consultorio_especialidade", joinColumns = @JoinColumn(name = "id_consultorios"),
+            inverseJoinColumns = @JoinColumn(name = "id_especialidades"))
     List<Especialidade>especialidades;
+
+//    @ManyToMany(mappedBy = "consultorio")
+//    List<Paciente> pacientes;
 
     private boolean ativo;
     public Consultorio(DadosCadastroConsultorioDto dados) {
@@ -54,11 +57,6 @@ public class Consultorio {
         for (Long i = 0L; i > dados.medicos().size() ; i++) {
                 this.medicos.add(new Medico(i));
         }
-
-//        this.especialidades = new ArrayList<>();
-//        for (Long i = 0L; i >especialidades.size() ; i++) {
-//            this.especialidades.add(new Especialidade());
-//        }
 
     }
     public void excluir(){
