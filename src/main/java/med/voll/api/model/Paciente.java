@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import med.voll.api.dto.dadosCadastrosPacientes;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,6 +26,11 @@ public class Paciente {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_endereco_pacientes")
     private Endereco endereco;
+
+//    @ManyToMany(cascade = CascadeType.MERGE)
+//    @JoinTable(name = "consultorio_paciente", joinColumns = @JoinColumn(name = "id_consultorios"),
+//            inverseJoinColumns = @JoinColumn(name = "id_paciente"))
+//    List<Paciente> consultorios;
 
     public Paciente (dadosCadastrosPacientes dados) {
         this.ativo = true;

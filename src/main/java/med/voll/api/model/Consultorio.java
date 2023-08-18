@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-@Entity
+@Entity(name = "consultorio")
 @Table(name = "consultorio")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,30 +26,47 @@ public class Consultorio {
     @JoinColumn(name = "id_endereco_consultorio")
     private Endereco endereco;
 
-    @Enumerated(value = EnumType.STRING)
-    private Especialidade especialidade;
+//    @Enumerated(value = EnumType.STRING)
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "id")
+//    private Especialidade especialidade;
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "medico_atende",
-            joinColumns = @JoinColumn(name = "consultorio_id"),
-            inverseJoinColumns = @JoinColumn(name = "medico_id"))
+            joinColumns = @JoinColumn(name = "consultorio_id", updatable = false),
+            inverseJoinColumns = @JoinColumn(name = "medico_id", updatable = false))
     List<Medico> medicos;
+
+
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "consultorio_especialidade", joinColumns = @JoinColumn(name = "id_consultorios"),
+            inverseJoinColumns = @JoinColumn(name = "id_especialidades"))
+    List<Especialidade>especialidades;
+
+//    @ManyToMany(mappedBy = "consultorio")
+//    List<Paciente> pacientes;
 
     private boolean ativo;
     public Consultorio(DadosCadastroConsultorioDto dados) {
         this.ativo = true;
         this.nome_consultorio = dados.nome_consultorio();
-        this.especialidade = dados.especialidade();
+//        this.especialidade = dados.especialidade();
         this.endereco = new Endereco(dados.endereco());
 
         this.medicos = new ArrayList<>();
         for (Long i = 0L; i > dados.medicos().size() ; i++) {
-            this.medicos.add(new Medico(i));
+                this.medicos.add(new Medico(i));
         }
 
     }
     public void excluir(){
         this.ativo = false;
     }
-    public Consultorio (Long id)
+    public Consultorio (Long id){
+        this.ativo = false;
+    }
+
+    public void excluirMedico(Long id){
+        medicos.remove(id);
+    }
 }

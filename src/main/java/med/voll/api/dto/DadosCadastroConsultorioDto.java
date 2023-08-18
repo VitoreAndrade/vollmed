@@ -10,15 +10,15 @@ import med.voll.api.model.Medico;
 import java.util.List;
 
 public record DadosCadastroConsultorioDto(
-        @NotNull
-        Long id,
         @NotBlank
         String nome_consultorio,
-        @NotNull
-        Especialidade especialidade,
+//        @NotNull
+//        Especialidade especialidade,
         @NotNull
         @Valid
         DadosEndereco endereco,
-        List<Long> medicos
+        List<Long> medicos,
+        List<Long> especialidades,
+        List<Long> pacientes
         ) {
 }
