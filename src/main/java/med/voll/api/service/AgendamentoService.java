@@ -25,24 +25,21 @@ public class AgendamentoService {
     private PacienteRepository pacienteRepository;
 
 
-    public void cadastrarAgendamento(Long consultorio, Long medico, Long paciente   ){
-//        repository.save(new Agendamento(dados));
-//    Agendamento agendar;
+    public void cadastrarAgendamento(Long consultorio, Long medico, Long paciente) {
 
-        Consultorio consulta =  consultorioRepository.findById(consultorio).orElse(null);
+
+        Consultorio consulta = consultorioRepository.findById(consultorio).orElse(null);
         Medico medicos = medicoRepository.findById(medico).orElse(null);
         Paciente pacientes = pacienteRepository.findById(paciente).orElse(null);
-//
-//        if(consulta != null && medico != null && pacientes != null){
-//            Consultorio consult = consultorioRepository.findById(consultorio).get();
-//            Medico medic = medicoRepository.findById(medico).get();
-//            Paciente pacienty = pacienteRepository.findById(paciente).get();
-//
-//
-//            consulta.getMedicos().add(medic);
-//            medicos.getConsultorios().add(consult);
-//            pacientes
 
-        repository.saveAndFlush(new Agendamento());
+            consulta.getMedicos().add(medicos);
+            consulta.getPacientes().add(pacientes);
+            medicos.getConsultorios().add(consulta);
+
+           repository.saveAndFlush(new Agendamento(consulta,medicos,pacientes));
+
+
     }
 }
+
+

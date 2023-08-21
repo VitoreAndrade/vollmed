@@ -6,18 +6,21 @@ import med.voll.api.model.Medico;
 import med.voll.api.model.Paciente;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.List;
+
 public record DadosCadastroAgendamentoDto(
         @NotNull
-        Medico medico,
+        Long medico,
         @NotNull
-        Paciente paciente,
-        @NotNull
-        Consultorio consultorio,
+        Long paciente,
         @NotNull
         @DateTimeFormat(pattern = "dd/mm/yyyy")
-        String data,
+        String data_agendamento,
         @NotNull
         @DateTimeFormat(pattern = "HH:mm")
-        String hora
+        String hora,
+        @NotNull
+        Long consultorios
+
 ) {
 }

@@ -37,6 +37,12 @@ public class ConsultorioController {
         service.addEspecialidade(consultorio, especialidade);
     }
 
+    @PostMapping("/{consultorio}/novoPaciente/{id_paciente}")
+    @Transactional
+    public void adicionarPaciente(@RequestBody @Valid @PathVariable ("consultorio") Long consultorio, @PathVariable("id_paciente") Long paciente){
+        service.addPaciente(consultorio, paciente);
+    }
+
  @GetMapping
     public Page<DadosListagemConsultorio> listarConsultorio(@PageableDefault(size = 10) Pageable paginacao) {
         return service.listarConsultorio(paginacao);

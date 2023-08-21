@@ -15,7 +15,7 @@ import java.util.Set;
 @Table(name = "consultorio")
 @NoArgsConstructor
 @AllArgsConstructor
-//@EqualsAndHashCode(of = "id_consultorio")
+
 public class Consultorio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,10 +26,7 @@ public class Consultorio {
     @JoinColumn(name = "id_endereco_consultorio")
     private Endereco endereco;
 
-//    @Enumerated(value = EnumType.STRING)
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "id")
-//    private Especialidade especialidade;
+
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "medico_atende",
@@ -43,8 +40,17 @@ public class Consultorio {
             inverseJoinColumns = @JoinColumn(name = "id_especialidades"))
     List<Especialidade>especialidades;
 
-//    @ManyToMany(mappedBy = "consultorio")
-//    List<Paciente> pacientes;
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "consultorio_paciente",
+            joinColumns = @JoinColumn(name = "id_consultorios", updatable = false),
+            inverseJoinColumns = @JoinColumn(name = "id_paciente", updatable = false))
+    List<Paciente> pacientes;
+
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "consulta_agenda",
+            joinColumns = @JoinColumn(name = "id_consultorio", updatable = false),
+            inverseJoinColumns = @JoinColumn(name = "id_agendamento", updatable = false))
+    List<Agendamento> agendamentos;
 
     private boolean ativo;
     public Consultorio(DadosCadastroConsultorioDto dados) {

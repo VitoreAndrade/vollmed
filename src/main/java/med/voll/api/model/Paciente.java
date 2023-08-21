@@ -31,6 +31,8 @@ public class Paciente {
 //    @JoinTable(name = "consultorio_paciente", joinColumns = @JoinColumn(name = "id_consultorios"),
 //            inverseJoinColumns = @JoinColumn(name = "id_paciente"))
 //    List<Paciente> consultorios;
+    @ManyToMany(mappedBy = "pacientes")
+    List<Consultorio> consultorios;
 
     public Paciente (dadosCadastrosPacientes dados) {
         this.ativo = true;

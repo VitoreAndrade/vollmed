@@ -5,14 +5,8 @@ import med.voll.api.dto.DadosAtualizacaoConsultorioDto;
 import med.voll.api.dto.DadosCadastroConsultorioDto;
 import med.voll.api.dto.DadosListagemConsultorio;
 import med.voll.api.dto.DadosListagemMedico;
-import med.voll.api.model.Consultorio;
-import med.voll.api.model.Endereco;
-import med.voll.api.model.Especialidade;
-import med.voll.api.model.Medico;
-import med.voll.api.repositorio.ConsultorioRepository;
-import med.voll.api.repositorio.EnderecoRepository;
-import med.voll.api.repositorio.EspecialidadeRepository;
-import med.voll.api.repositorio.MedicoRepository;
+import med.voll.api.model.*;
+import med.voll.api.repositorio.*;
 import org.apache.catalina.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,6 +25,9 @@ public class ConsultorioService {
 
     @Autowired
     private EspecialidadeRepository especialidadeRepository;
+
+    @Autowired
+    private PacienteRepository pacienteRepository;
 
     public void cadastarConsultorio(DadosCadastroConsultorioDto dados) {
         repository.save(new Consultorio(dados));
@@ -106,7 +103,19 @@ public class ConsultorioService {
             consul.getEspecialidades().add(especialidadeNova);
             repository.saveAndFlush(consul);
         }
+
     }
+    public void addPaciente (Long consultorios, Long pacientes){
+        Consultorio consulta = repository.findById(consultorios).orElse(null);
+
+        if(consulta != null){
+            Paciente paciente = pacienteRepository.findById(pacientes).get();
+
+            consulta.getPacientes().add(paciente);
+            repository.saveAndFlush(consulta);
+        }
+    }
+
 }
 
 
