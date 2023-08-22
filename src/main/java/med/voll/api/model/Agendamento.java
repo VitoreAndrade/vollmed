@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import med.voll.api.dto.DadosCadastroAgendamentoDto;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -21,33 +22,37 @@ public class Agendamento {
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "id_medico")
     private Medico medico;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "id_paciente")
     private Paciente paciente;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_consultorio")
     private Consultorio consultorio;
 
-    private String data_agendamento;
-    private String hora;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_especialidade")
+    private Especialidade especialidades;
+
+    private LocalDateTime dataHoraAgendamento;
+
 
  @ManyToMany(mappedBy = "agendamentos")
  List<Consultorio>consultorios;
 
 public Agendamento (DadosCadastroAgendamentoDto dados){
 
-    this.data_agendamento = dados.data_agendamento();
-    this.hora = dados.hora();
 
 }
 
-    public Agendamento(Consultorio consulta, Medico medicos, Paciente pacientes) {
+    public Agendamento(Consultorio consulta, Medico medicos, Paciente pacientes, LocalDateTime dataHoraAgendamento, Especialidade especialidade) {
         this.consultorio = consulta;
         this.medico = medicos;
         this.paciente = pacientes;
+        this.dataHoraAgendamento = dataHoraAgendamento;
+        this.especialidades = especialidade;
     }
 }

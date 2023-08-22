@@ -1,16 +1,12 @@
 package med.voll.api.service;
 
 import med.voll.api.dto.DadosCadastroAgendamentoDto;
-import med.voll.api.model.Agendamento;
-import med.voll.api.model.Consultorio;
-import med.voll.api.model.Medico;
-import med.voll.api.model.Paciente;
-import med.voll.api.repositorio.AgendamentoRepository;
-import med.voll.api.repositorio.ConsultorioRepository;
-import med.voll.api.repositorio.MedicoRepository;
-import med.voll.api.repositorio.PacienteRepository;
+import med.voll.api.model.*;
+import med.voll.api.repositorio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 public class AgendamentoService {
@@ -24,22 +20,33 @@ public class AgendamentoService {
     @Autowired
     private PacienteRepository pacienteRepository;
 
+    @Autowired
+    private EspecialidadeRepository especialidadeRepository;
 
-    public void cadastrarAgendamento(Long consultorio, Long medico, Long paciente) {
 
 
-        Consultorio consulta = consultorioRepository.findById(consultorio).orElse(null);
-        Medico medicos = medicoRepository.findById(medico).orElse(null);
-        Paciente pacientes = pacienteRepository.findById(paciente).orElse(null);
+public void cadastrarAgendamneto(DadosCadastroAgendamentoDto agenda){
 
-            consulta.getMedicos().add(medicos);
-            consulta.getPacientes().add(pacientes);
-            medicos.getConsultorios().add(consulta);
 
-           repository.saveAndFlush(new Agendamento(consulta,medicos,pacientes));
+    Consultorio consulta = consultorioRepository.findById(agenda.consultorios()).orElse(null);
+
+    Medico medicos = medicoRepository.findById(agenda.medico()).orElse(null);
+
+    Paciente pacientes = pacienteRepository.findById(agenda.paciente()).orElse(null);
+
+    Especialidade especialidade = especialidadeRepository.findById(agenda.id_especialidades()).orElse(null);
+
+    var data = agenda.dataHoraAgendamento();
+    var index =0;
+
+// if(medicos.getId_especialidade() == especialidade.getId()){
+
+        repository.saveAndFlush(new Agendamento(consulta, medicos, pacientes, data,especialidade));
 
 
     }
 }
+
+
 
 

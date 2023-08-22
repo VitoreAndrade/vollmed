@@ -11,6 +11,8 @@ public class EspecialidadeService {
     @Autowired
     private EspecialidadeRepository repository;
     public void cadastrarEspecialidade(DadosCadastrosEspecialidadesDto dados){
+
+
         repository.save(new Especialidade(dados));
     }
 
