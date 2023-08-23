@@ -5,6 +5,7 @@ import med.voll.api.model.*;
 import med.voll.api.repositorio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.lang.Exception;
 
 import java.time.LocalDateTime;
 
@@ -24,28 +25,38 @@ public class AgendamentoService {
     private EspecialidadeRepository especialidadeRepository;
 
 
-
-public void cadastrarAgendamneto(DadosCadastroAgendamentoDto agenda){
-
-
-    Consultorio consulta = consultorioRepository.findById(agenda.consultorios()).orElse(null);
-
-    Medico medicos = medicoRepository.findById(agenda.medico()).orElse(null);
-
-    Paciente pacientes = pacienteRepository.findById(agenda.paciente()).orElse(null);
-
-    Especialidade especialidade = especialidadeRepository.findById(agenda.id_especialidades()).orElse(null);
-
-    var data = agenda.dataHoraAgendamento();
-    var index =0;
-
-// if(medicos.getId_especialidade() == especialidade.getId()){
-
-        repository.saveAndFlush(new Agendamento(consulta, medicos, pacientes, data,especialidade));
+    public void cadastrarAgendamneto(DadosCadastroAgendamentoDto agenda) {
 
 
+        Consultorio consulta = consultorioRepository.findById(agenda.consultorios()).orElse(null);
+
+        Medico medicos = medicoRepository.findById(agenda.medico()).orElse(null);
+
+        Paciente pacientes = pacienteRepository.findById(agenda.paciente()).orElse(null);
+
+        Especialidade especialidade = especialidadeRepository.findById(agenda.id_especialidades()).orElse(null);
+
+        var data = agenda.dataHoraAgendamento();
+        var index = 0;
+
+
+        try {
+            if (medicos.getId_especialidade() == consulta.getId_especialidade()) {
+                repository.saveAndFlush(new Agendamento(consulta, medicos, pacientes, data, especialidade));
+            }
+        }
+                catch(Exception ex){
+                System.err.println("erro" + ex.getMessage());
+            }
+
+
+//        if (medicos.getId_especialidade() == consulta.getId_especialidade() ) {
+
+//            repository.saveAndFlush(new Agendamento(consulta, medicos, pacientes, data, especialidade));
+
+        }
     }
-}
+
 
 
 

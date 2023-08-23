@@ -54,5 +54,9 @@ public Agendamento (DadosCadastroAgendamentoDto dados){
         this.paciente = pacientes;
         this.dataHoraAgendamento = dataHoraAgendamento;
         this.especialidades = especialidade;
+
+
+
+
     }
 }

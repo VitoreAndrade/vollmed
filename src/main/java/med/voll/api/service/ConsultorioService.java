@@ -29,6 +29,9 @@ public class ConsultorioService {
     @Autowired
     private PacienteRepository pacienteRepository;
 
+    @Autowired
+    private AgendamentoRepository agendamentoRepository;
+
     public void cadastarConsultorio(DadosCadastroConsultorioDto dados) {
         repository.save(new Consultorio(dados));
     }
@@ -100,7 +103,17 @@ public class ConsultorioService {
         if (consul != null) {
             Especialidade especialidadeNova = especialidadeRepository.findById(especialidade).get();
 
-            consul.getEspecialidades().add(especialidadeNova);
+//            consul.getEspecialidades().add(especialidadeNova);
+            repository.saveAndFlush(consul);
+        }
+
+    }
+    public void addAgendamento(Long consultorios, Long agendamento) {
+        Consultorio consul = repository.findById(consultorios).orElse(null);
+
+        if (consul != null) {
+            Agendamento agendar = agendamentoRepository.findById(agendamento).orElse(null);
+            consul.getAgendamentos().add(agendar);
             repository.saveAndFlush(consul);
         }
 

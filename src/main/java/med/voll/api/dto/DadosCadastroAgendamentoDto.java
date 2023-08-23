@@ -25,5 +25,6 @@ public record DadosCadastroAgendamentoDto(
         @NotNull
         Long id_especialidades
 
+
 ) {
 }
