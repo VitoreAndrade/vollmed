@@ -1,13 +1,19 @@
 package med.voll.api.service;
 
+
+import med.voll.api.controller.DadosErro;
 import med.voll.api.dto.DadosCadastroAgendamentoDto;
+import med.voll.api.dto.DefaultDto;
 import med.voll.api.model.*;
 import med.voll.api.repositorio.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import java.lang.Exception;
 
-import java.time.LocalDateTime;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Service
 public class AgendamentoService {
@@ -25,7 +31,7 @@ public class AgendamentoService {
     private EspecialidadeRepository especialidadeRepository;
 
 
-    public void cadastrarAgendamneto(DadosCadastroAgendamentoDto agenda) {
+    public @ResponseBody String cadastrarAgendamneto(DadosCadastroAgendamentoDto agenda) throws DadosErro {
 
 
         Consultorio consulta = consultorioRepository.findById(agenda.consultorios()).orElse(null);
@@ -37,25 +43,46 @@ public class AgendamentoService {
         Especialidade especialidade = especialidadeRepository.findById(agenda.id_especialidades()).orElse(null);
 
         var data = agenda.dataHoraAgendamento();
-        var index = 0;
 
 
+
+
+
+
+//            if (medicos.getId_especialidade() == consulta.getId_especialidade()) {
+//                repository.saveAndFlush(new Agendamento(consulta, medicos, pacientes, data, especialidade));
+//            }
         try {
             if (medicos.getId_especialidade() == consulta.getId_especialidade()) {
                 repository.saveAndFlush(new Agendamento(consulta, medicos, pacientes, data, especialidade));
             }
-        }
-                catch(Exception ex){
-                System.err.println("erro" + ex.getMessage());
+            else{
+                throw new DadosErro("Erro no agendamento de dados: Cadastros incoerentes");
             }
+        }
+        catch (DadosErro erro){
+            System.out.println("Erro de dados viu");
+            return "KKKKKKKKKKK";
+        }
+        catch(Exception ex){
+            System.out.println("Erro ao salvar o agendamento" + ex.getMessage());
+        }
+
+        return "teste";
+    }
+
+
+//                System.err.println("erro" + ex.getMessage());
+//
+//            }
 
 
 //        if (medicos.getId_especialidade() == consulta.getId_especialidade() ) {
 
 //            repository.saveAndFlush(new Agendamento(consulta, medicos, pacientes, data, especialidade));
 
-        }
-    }
+}
+
 
 
 

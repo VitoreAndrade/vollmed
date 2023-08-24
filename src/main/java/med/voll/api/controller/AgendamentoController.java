@@ -4,7 +4,9 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import med.voll.api.dto.DadosCadastroAgendamentoDto;
 import med.voll.api.service.AgendamentoService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -16,8 +18,10 @@ public class AgendamentoController {
     private AgendamentoService service;
     @PostMapping
     @Transactional
-public void agendar(@RequestBody @Valid DadosCadastroAgendamentoDto agenda){
-        service.cadastrarAgendamneto(agenda);
+    public String agendar(@RequestBody @Valid DadosCadastroAgendamentoDto agenda) throws DadosErro {
+        return service.cadastrarAgendamneto(agenda);
 
     }
+
 }
+

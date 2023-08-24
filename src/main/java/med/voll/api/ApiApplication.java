@@ -1,5 +1,6 @@
 package med.voll.api;
 
+import org.hibernate.tool.schema.spi.ExceptionHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
