@@ -3,6 +3,7 @@ package med.voll.api.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
 import med.voll.api.model.Consultorio;
+import med.voll.api.model.Especialidade;
 import med.voll.api.model.Medico;
 import med.voll.api.model.Paciente;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,9 +23,7 @@ public record DadosCadastroAgendamentoDto(
         LocalDateTime dataHoraAgendamento,
         @NotNull
         Long consultorios,
-        @NotNull
-        Long id_especialidades
-
+        Long especialidades
 
 ) {
 }

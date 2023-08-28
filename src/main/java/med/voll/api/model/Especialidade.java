@@ -34,7 +34,9 @@ public class Especialidade {
      this.nomeEspecialidade = dados.nomeEspecialidade();
 
     }
-
+//    public Especialidade(String especialidade){
+//        this.nomeEspecialidade = especialidade;
+//    }
 
 
 }
