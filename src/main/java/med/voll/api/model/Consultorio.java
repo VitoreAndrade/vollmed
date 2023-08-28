@@ -3,6 +3,7 @@ package med.voll.api.model;
 import jakarta.persistence.*;
 import lombok.*;
 import med.voll.api.dto.DadosCadastroConsultorioDto;
+import med.voll.api.dto.DadosCadastrosEspecialidadesDto;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -15,21 +16,18 @@ import java.util.Set;
 @Table(name = "consultorio")
 @NoArgsConstructor
 @AllArgsConstructor
-//@EqualsAndHashCode(of = "id_consultorio")
+
 public class Consultorio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_consultorio;
+
     private String nome_consultorio;
+    private Long id_especialidade;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_endereco_consultorio")
     private Endereco endereco;
-
-//    @Enumerated(value = EnumType.STRING)
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "id")
-//    private Especialidade especialidade;
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "medico_atende",
@@ -37,27 +35,34 @@ public class Consultorio {
             inverseJoinColumns = @JoinColumn(name = "medico_id", updatable = false))
     List<Medico> medicos;
 
+//    @ManyToMany(cascade = CascadeType.MERGE)
+//    @JoinTable(name = "consultorio_especialidade", joinColumns = @JoinColumn(name = "id_consultorios"),
+//            inverseJoinColumns = @JoinColumn(name = "id_especialidades"))
+//    List<Especialidade>especialidades;
 
     @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "consultorio_especialidade", joinColumns = @JoinColumn(name = "id_consultorios"),
-            inverseJoinColumns = @JoinColumn(name = "id_especialidades"))
-    List<Especialidade>especialidades;
+    @JoinTable(name = "consultorio_paciente",
+            joinColumns = @JoinColumn(name = "id_consultorios", updatable = false),
+            inverseJoinColumns = @JoinColumn(name = "id_paciente", updatable = false))
+    List<Paciente> pacientes;
 
-//    @ManyToMany(mappedBy = "consultorio")
-//    List<Paciente> pacientes;
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "consulta_agenda",
+            joinColumns = @JoinColumn(name = "id_consultorio", updatable = false),
+            inverseJoinColumns = @JoinColumn(name = "id_agendamento", updatable = false))
+    List<Agendamento> agendamentos;
 
     private boolean ativo;
     public Consultorio(DadosCadastroConsultorioDto dados) {
         this.ativo = true;
         this.nome_consultorio = dados.nome_consultorio();
-//        this.especialidade = dados.especialidade();
         this.endereco = new Endereco(dados.endereco());
-
+        this.id_especialidade = dados.id_especialidades();
         this.medicos = new ArrayList<>();
         for (Long i = 0L; i > dados.medicos().size() ; i++) {
-                this.medicos.add(new Medico(i));
-        }
+            this.medicos.add(new Medico(i));
 
+        }
     }
     public void excluir(){
         this.ativo = false;

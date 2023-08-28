@@ -23,18 +23,31 @@ public class ConsultorioController {
     @Transactional
     public void cadastrar (@RequestBody @Valid DadosCadastroConsultorioDto dados){
         service.cadastarConsultorio(dados);
+        System.out.println(dados);
     }
 
     @PostMapping("/{consultorio}/novoMedico/{id}")
     @Transactional
     public void adicionarMedico (@RequestBody @Valid @PathVariable ("consultorio") Long consultorio, @PathVariable("id") Long medico){
         service.addMedico(consultorio, medico);
+
+    }
+    @PostMapping("/{consultorio}/novoAgendamento/{id}")
+    @Transactional
+    public void adicionarAgendamento (@RequestBody @Valid @PathVariable ("consultorio") Long consultorio, @PathVariable("id") Long agendamento){
+        service.addAgendamento(consultorio, agendamento);
     }
 
     @PostMapping("/{consultorio}/novoEspecialidade/{id_especialidade}")
     @Transactional
     public void adicionarEspecialidade(@RequestBody @Valid @PathVariable ("consultorio") Long consultorio, @PathVariable("id_especialidade") Long especialidade){
         service.addEspecialidade(consultorio, especialidade);
+    }
+
+    @PostMapping("/{consultorio}/novoPaciente/{id_paciente}")
+    @Transactional
+    public void adicionarPaciente(@RequestBody @Valid @PathVariable ("consultorio") Long consultorio, @PathVariable("id_paciente") Long paciente){
+        service.addPaciente(consultorio, paciente);
     }
 
  @GetMapping
