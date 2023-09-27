@@ -2,7 +2,7 @@ package med.voll.api.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import med.voll.api.dto.dadosCadastrosPacientes;
+import med.voll.api.dto.DadosCadastrosPacientes;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class Paciente {
     @ManyToMany(mappedBy = "pacientes")
     List<Consultorio> consultorios;
 
-    public Paciente (dadosCadastrosPacientes dados) {
+    public Paciente (DadosCadastrosPacientes dados) {
         this.ativo = true;
         this.nome = dados.nome();
         this.email = dados.email();

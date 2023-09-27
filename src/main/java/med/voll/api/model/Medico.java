@@ -2,10 +2,8 @@ package med.voll.api.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import med.voll.api.dto.DadosCadastrosEspecialidadesDto;
-import med.voll.api.dto.dadosCadastroMedicosDto;
+import med.voll.api.dto.DadosCadastroMedicosDto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "medicos")
@@ -45,7 +43,7 @@ public class Medico {
 
     private boolean ativo;
 
-    public Medico(dadosCadastroMedicosDto dados) {
+    public Medico(DadosCadastroMedicosDto dados) {
         this.ativo = true;
         this.nome = dados.nome();
         this.email = dados.email();

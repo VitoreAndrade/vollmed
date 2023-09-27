@@ -2,7 +2,7 @@ package med.voll.api.service;
 
 import med.voll.api.dto.DadosListagemPaciente;
 import med.voll.api.dto.dadosAtualizacaoPacientesDto;
-import med.voll.api.dto.dadosCadastrosPacientes;
+import med.voll.api.dto.DadosCadastrosPacientes;
 import med.voll.api.model.Paciente;
 import med.voll.api.repositorio.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +16,11 @@ public class PacienteService {
     @Autowired
     private PacienteRepository repository;
 
-    public void cadastrar( dadosCadastrosPacientes dados){
+    public void cadastrar( DadosCadastrosPacientes dados){
         repository.save(new Paciente(dados));
     }
 
-    public void atualizarInformacoesPaciente(dadosAtualizacaoPacientesDto dadosAtualizadosPacientes) {
+    public Paciente  atualizarInformacoesPaciente(dadosAtualizacaoPacientesDto dadosAtualizadosPacientes) {
         Paciente paciente = repository.findById(dadosAtualizadosPacientes.id()).get();
 
 
@@ -33,6 +33,7 @@ public class PacienteService {
 //        if (dadosAtualizadosPacientes.endereco() != null){
 //            paciente.getEndereco().atualizarInformacoes(dadosAtualizadosPacientes.endereco());
 //        }
+        return repository.saveAndFlush(paciente);
     }
 
     public Page<DadosListagemPaciente> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {

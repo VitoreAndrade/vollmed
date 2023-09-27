@@ -1,7 +1,6 @@
 package med.voll.api.service;
 
 import med.voll.api.dto.DadosEndereco;
-import med.voll.api.dto.dadosCadastroMedicosDto;
 import med.voll.api.model.Endereco;
 import med.voll.api.repositorio.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;

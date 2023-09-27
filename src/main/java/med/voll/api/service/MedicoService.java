@@ -1,10 +1,9 @@
 package med.voll.api.service;
 
-import jakarta.transaction.Transactional;
 import med.voll.api.dto.DadosAtualizacaoMedicosDto;
 import med.voll.api.dto.DadosListagemMedico;
-import med.voll.api.dto.dadosCadastroMedicosDto;
-import med.voll.api.model.Consultorio;
+import med.voll.api.dto.DadosCadastroMedicosDto;
+import med.voll.api.dto.DadosRetornoCadastroMedicosDto;
 import med.voll.api.model.Medico;
 import med.voll.api.repositorio.EnderecoRepository;
 import med.voll.api.repositorio.MedicoRepository;
@@ -12,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 public class MedicoService {
@@ -22,9 +22,15 @@ public class MedicoService {
     private EnderecoRepository enderecoRepository;
 
 
-    public void cadastrar( dadosCadastroMedicosDto dados){
-
+    public void cadastrar(DadosCadastroMedicosDto dados){
         repository.save(new Medico(dados));
+//        DadosRetornoCadastroMedicosDto retorno = new DadosRetornoCadastroMedicosDto();
+//        retorno.medico = new Medico(dados);
+//        repository.save(retorno.medico);
+//        retorno.uri = uribuilder.path("medicos/{id}").buildAndExpand(retorno.medico.getId()).toUri();
+//        return retorno;
+
+
     }
 
     public Medico atualizarDados(DadosAtualizacaoMedicosDto dadosAtualizadosMedicos) {
