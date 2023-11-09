@@ -1,26 +1,29 @@
 package med.voll.api.service;
 
-import med.voll.api.dto.DadosListagemPaciente;
-import med.voll.api.dto.dadosAtualizacaoPacientesDto;
-import med.voll.api.dto.dadosCadastrosPacientes;
+import med.voll.api.dto.*;
 import med.voll.api.model.Paciente;
 import med.voll.api.repositorio.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 public class PacienteService {
     @Autowired
     private PacienteRepository repository;
 
-    public void cadastrar( dadosCadastrosPacientes dados){
-        repository.save(new Paciente(dados));
+    public ResponseEntity cadastrar(dadosCadastrosPacientes dados, UriComponentsBuilder uriBuilder){
+        var paciente = new Paciente(dados);
+        repository.save(paciente);
+        var uri = uriBuilder.path("/pacientes/{id}").buildAndExpand(paciente.getId()).toUri();
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoPaciente(paciente));
     }
 
-    public void atualizarInformacoesPaciente(dadosAtualizacaoPacientesDto dadosAtualizadosPacientes) {
+    public ResponseEntity atualizarInformacoesPaciente(dadosAtualizacaoPacientesDto dadosAtualizadosPacientes) {
         Paciente paciente = repository.findById(dadosAtualizadosPacientes.id()).get();
 
 
@@ -30,17 +33,21 @@ public class PacienteService {
         if(dadosAtualizadosPacientes.telefone() != null) {
             paciente.setTelefone(dadosAtualizadosPacientes.telefone());
         }
-//        if (dadosAtualizadosPacientes.endereco() != null){
-//            paciente.getEndereco().atualizarInformacoes(dadosAtualizadosPacientes.endereco());
-//        }
+        return ResponseEntity.ok(new DadosDetalhamentoPaciente(paciente));
     }
 
-    public Page<DadosListagemPaciente> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-        return repository.findAllByAtivoTrue(paginacao).map(DadosListagemPaciente::new);
+    public ResponseEntity< Page<DadosListagemPaciente>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        var page =  repository.findAllByAtivoTrue(paginacao).map(DadosListagemPaciente::new);
+        return  ResponseEntity.ok(page);
     }
 
-    public void remover(Long id){
+    public ResponseEntity remover(Long id){
         var paciente = repository.getReferenceById(id);
         paciente.inativar();
+        return ResponseEntity.noContent().build();
+    }
+    public ResponseEntity detalhar(Long id){
+        var paciente = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhamentoPaciente(paciente));
     }
 }

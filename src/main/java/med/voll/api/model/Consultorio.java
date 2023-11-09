@@ -35,10 +35,7 @@ public class Consultorio {
             inverseJoinColumns = @JoinColumn(name = "medico_id", updatable = false))
     List<Medico> medicos;
 
-//    @ManyToMany(cascade = CascadeType.MERGE)
-//    @JoinTable(name = "consultorio_especialidade", joinColumns = @JoinColumn(name = "id_consultorios"),
-//            inverseJoinColumns = @JoinColumn(name = "id_especialidades"))
-//    List<Especialidade>especialidades;
+
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "consultorio_paciente",
