@@ -1,11 +1,10 @@
 package med.voll.api.service;
 
-import jakarta.transaction.Transactional;
 import med.voll.api.dto.DadosAtualizacaoMedicosDto;
 import med.voll.api.dto.DadosDetalhamentoMedico;
 import med.voll.api.dto.DadosListagemMedico;
 import med.voll.api.dto.dadosCadastroMedicosDto;
-import med.voll.api.model.Consultorio;
+import med.voll.api.infra.TratadorDeErros;
 import med.voll.api.model.Medico;
 import med.voll.api.repositorio.EnderecoRepository;
 import med.voll.api.repositorio.MedicoRepository;
@@ -16,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.Optional;
+
 @Service
 public class MedicoService {
 
@@ -24,48 +25,60 @@ public class MedicoService {
     @Autowired
     private EnderecoRepository enderecoRepository;
 
+    @Autowired
+    private TratadorDeErros tratadorDeErros;
 
-    public ResponseEntity cadastrar(dadosCadastroMedicosDto dados, UriComponentsBuilder uriBuilder){
+
+    public ResponseEntity cadastrar(dadosCadastroMedicosDto dados, UriComponentsBuilder uriBuilder) {
         var medico = new Medico(dados);
-        var cadastro =repository.save(medico);
+        var cadastro = repository.save(medico);
 
         var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new DadosDetalhamentoMedico(medico));
     }
 
-            public ResponseEntity atualizarDados(DadosAtualizacaoMedicosDto dadosAtualizadosMedicos) {
+    public ResponseEntity atualizarDados(DadosAtualizacaoMedicosDto dadosAtualizadosMedicos) {
+        try {
+            Optional<Medico> optionalMedico = repository.findById(dadosAtualizadosMedicos.id());
 
-                Medico medico = repository.findById(dadosAtualizadosMedicos.id()).get();
+            if (optionalMedico.isPresent()) {
+                Medico medico = optionalMedico.get();
 
-
-                if(dadosAtualizadosMedicos.nome() != null){
+                if (dadosAtualizadosMedicos.nome() != null) {
                     medico.setNome(dadosAtualizadosMedicos.nome());
                 }
-                if(dadosAtualizadosMedicos.telefone() != null) {
-                    medico.setTelefone( dadosAtualizadosMedicos.telefone());
+                if (dadosAtualizadosMedicos.telefone() != null) {
+                    medico.setTelefone(dadosAtualizadosMedicos.telefone());
                 }
-                if (dadosAtualizadosMedicos.endereco() != null){
+                if (dadosAtualizadosMedicos.endereco() != null) {
                     medico.getEndereco().atualizarInformacoes(dadosAtualizadosMedicos.endereco());
                 }
 
                 var medicoAtualizado = repository.saveAndFlush(medico);
                 return ResponseEntity.ok(new DadosDetalhamentoMedico(medicoAtualizado));
+            } else {
+                return ResponseEntity.badRequest().body("Médico não encontrado, confira o ID");
             }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao tentar atualizar os dados do médico");
+        }
+    }
 
-    public ResponseEntity<Page <DadosListagemMedico>> listar(Pageable paginacao) {
-      var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedico::new);
+    public ResponseEntity<Page<DadosListagemMedico>> listar(Pageable paginacao) {
+        var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedico::new);
         return ResponseEntity.ok(page);
     }
 
 
-    public ResponseEntity excluir (Long id){
+    public ResponseEntity excluir(Long id) {
         var medico = repository.getReferenceById(id);
         medico.excluir();
         return ResponseEntity.noContent().build();
 
     }
-    public ResponseEntity detalhamento (Long id){
+
+    public ResponseEntity detalhamento(Long id) {
         var medico = repository.getReferenceById(id);
         return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
 

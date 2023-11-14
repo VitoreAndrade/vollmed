@@ -2,6 +2,7 @@ package med.voll.api.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import med.voll.api.dto.DadosCadastroUsuario;
 import org.apache.catalina.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,6 +25,11 @@ public class Usuario implements UserDetails {
     private Long id;
     private String login;
     private String senha;
+
+    public Usuario(DadosCadastroUsuario dados) {
+        this.login = dados.login();
+        this.senha = dados.senha();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
