@@ -1,4 +1,12 @@
 package med.voll.api.infra;
 
-public class ValidacaoException {
-}
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+
+public class ValidacaoException extends RuntimeException{
+
+        public ValidacaoException(String exception) {
+            super(exception);
+        }
+    }
+

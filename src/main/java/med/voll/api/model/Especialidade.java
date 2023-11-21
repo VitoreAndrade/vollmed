@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import med.voll.api.dto.DadosCadastrosEspecialidadesDto;
+import med.voll.api.dto.Especialidades;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,9 @@ public class Especialidade {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nomeEspecialidade;
+
+    @Enumerated(EnumType.STRING)
+    private Especialidades nomeEspecialidade;
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "medicos",
@@ -34,9 +37,7 @@ public class Especialidade {
      this.nomeEspecialidade = dados.nomeEspecialidade();
 
     }
-//    public Especialidade(String especialidade){
-//        this.nomeEspecialidade = especialidade;
-//    }
+
 
 
 }

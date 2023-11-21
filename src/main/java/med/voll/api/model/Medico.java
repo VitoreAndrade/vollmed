@@ -3,6 +3,7 @@ package med.voll.api.model;
 import jakarta.persistence.*;
 import lombok.*;
 import med.voll.api.dto.DadosCadastrosEspecialidadesDto;
+import med.voll.api.dto.Especialidades;
 import med.voll.api.dto.dadosCadastroMedicosDto;
 
 import java.util.ArrayList;

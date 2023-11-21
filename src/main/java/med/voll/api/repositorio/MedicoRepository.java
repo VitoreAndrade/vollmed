@@ -1,5 +1,6 @@
 package med.voll.api.repositorio;
 
+import med.voll.api.dto.Especialidades;
 import med.voll.api.model.Especialidade;
 import med.voll.api.model.Medico;
 import org.springframework.data.domain.Page;
@@ -18,18 +19,20 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
             select m from Medico m
             where
             m.ativo = true
-            and 
+            and
             m.especialidade = :especialidade
             and
             m.id not in(
-            select c.medico.id from Consulta c
-            where
-            c.data = :data
+                select c.medico.id from Consulta c
+                where
+                c.data = :data
+        and
+                c.motivoCancelamento is null
             )
             order by rand()
             limit 1
-            """)
-    Medico escolherMedicoAleatorioLivreNaData(Especialidade especialidade, LocalDateTime data);
+""")
+    Medico escolherMedicoAleatorioLivreNaData(Especialidades especialidade, LocalDateTime data);
 
     @Query("""
             select m.ativo

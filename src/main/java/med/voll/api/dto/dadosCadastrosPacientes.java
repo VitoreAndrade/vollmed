@@ -9,8 +9,8 @@ import med.voll.api.dto.DadosEndereco;
 
 public record dadosCadastrosPacientes(
 
-        @NotNull
-        boolean ativo,
+//        @NotNull
+//        boolean ativo,
         @NotBlank
         String nome,
         @NotBlank

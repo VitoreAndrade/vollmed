@@ -1,6 +1,7 @@
 package med.voll.api.service;
 
 import med.voll.api.dto.DadosCadastrosEspecialidadesDto;
+import med.voll.api.dto.Especialidades;
 import med.voll.api.model.Especialidade;
 import med.voll.api.repositorio.EspecialidadeRepository;
 import org.springframework.beans.factory.annotation.Autowired;

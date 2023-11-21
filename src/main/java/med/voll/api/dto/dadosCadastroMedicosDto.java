@@ -19,7 +19,7 @@ public record  dadosCadastroMedicosDto(
         String telefone,
 
         @NotNull
-        Long id_especialidade,
+        Especialidades especialidades,
         @NotBlank
         @Pattern(regexp = "\\d{4,6}")
         String crm,

@@ -43,6 +43,8 @@ public class Paciente {
         this.endereco = new Endereco(dados.endereco());
     }
 
+
+
     public void inativar() {
         this.ativo = false;
     }

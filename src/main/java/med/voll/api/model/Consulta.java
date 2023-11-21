@@ -34,7 +34,10 @@ import java.time.LocalDateTime;
         @Enumerated(EnumType.STRING)
         private MotivoCancelamento motivoCancelamento;
 
-        public void cancelar (MotivoCancelamento motivo){
+    public Consulta(Object o, Medico medico, Paciente paciente, LocalDateTime data) {
+    }
+
+    public void cancelar (MotivoCancelamento motivo){
             this.motivoCancelamento = motivo;
         }
 
