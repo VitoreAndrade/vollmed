@@ -17,9 +17,8 @@ public record  dadosCadastroMedicosDto(
         String email,
         @NotBlank
         String telefone,
-
         @NotNull
-        Especialidades especialidades,
+        Long id_especialidades,
         @NotBlank
         @Pattern(regexp = "\\d{4,6}")
         String crm,

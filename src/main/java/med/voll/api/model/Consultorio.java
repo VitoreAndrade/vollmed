@@ -35,8 +35,6 @@ public class Consultorio {
             inverseJoinColumns = @JoinColumn(name = "medico_id", updatable = false))
     List<Medico> medicos;
 
-
-
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "consultorio_paciente",
             joinColumns = @JoinColumn(name = "id_consultorios", updatable = false),
@@ -56,9 +54,8 @@ public class Consultorio {
         this.endereco = new Endereco(dados.endereco());
         this.id_especialidade = dados.id_especialidades();
         this.medicos = new ArrayList<>();
-        for (Long i = 0L; i > dados.medicos().size() ; i++) {
-            this.medicos.add(new Medico(i));
-
+        for (int i = 0; i < dados.medicos().size() ; i++) {
+            this.medicos.add(new Medico(dados.medicos().get(i)));
         }
     }
     public void excluir(){

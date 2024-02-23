@@ -11,13 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping(value ="/login", method = RequestMethod.POST)
+@CrossOrigin(origins = "http://localhost:8080/login")
 public class AutenticacaoController {
 
 
@@ -37,14 +35,4 @@ public class AutenticacaoController {
         return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
     }
 }
-//    @PostMapping
-//    public ResponseEntity efetuarLogin(@RequestBody @Valid DadosAutenticacao dados) {
-//        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
-//        Authentication autentication = manager.authenticate(authenticationToken);
-//
-//        String tokenJWT = tokenService.gerarToken((Usuario) autentication.getPrincipal());
-//
-//        return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
-//    }
-//
-//}
+

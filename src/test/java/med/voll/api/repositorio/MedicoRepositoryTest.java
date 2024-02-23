@@ -69,6 +69,7 @@ class MedicoRepositoryTest {
                 crm,
                 dadosEndereco()
 
+
         );
     }
 
